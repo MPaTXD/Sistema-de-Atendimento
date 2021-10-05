@@ -1,0 +1,51 @@
+﻿@model Entites.Entites.Operador
+
+@{
+    ViewData["Title"] = "Dados do Operador";
+}
+
+
+<div class="container d-flex justify-content-center" style="Height:70vh">
+    <div class="align-self-center">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2.5rem">
+            <h1>DETALHES</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 45rem; ">
+                <div class="card-header d-flex bd-highlight" style="font-size: 1.5rem">
+                    <div class="p-2 flex-grow-1 bd-highlight">
+                        Dados do Operador
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-primary" asp-controller="Operador" asp-action="Edit" asp-route-id="@Model.IdOperador">EDITAR</a>
+                            <a class="btn btn-dark" asp-controller="Operador" asp-action="Index">VOLTAR</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Matricula_Operador):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Matricula_Operador)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Nome_Operador):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Nome_Operador)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Tipo):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Tipo)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

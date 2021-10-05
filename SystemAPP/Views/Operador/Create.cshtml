@@ -1,0 +1,52 @@
+﻿@model Entites.Entites.Operador
+@using Entites.Enums
+
+@{
+    ViewData["Title"] = "Cadastrar Operador";
+}
+
+
+<div class="container d-flex justify-content-center" style="Height:70vh">
+    <div class="align-self-center">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2.5rem">
+            <h1>CADASTRO</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <form asp-action="Create">
+                <div class="card" style="width: 45rem; ">
+                    <div class="card-header d-flex bd-highlight" style="font-size: 1.5rem">
+                        <div class="p-2 flex-grow-1 bd-highlight">
+                            Dados do Operador
+                        </div>
+                        <div class="p-2 flex-fill bd-highlight">
+                            <div class="form-group d-grid gap-2 d-md-flex justify-content-md-end">
+                                <input type="submit" value="CADASTRAR" class="btn btn-success" />
+                                <a class="btn btn-dark" asp-controller="Home" asp-action="Index">VOLTAR</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Tipo" class="control-label">Atendimento</label>
+                            <select asp-for="Tipo" style="margin-top: 0.5rem" class="form-select form-select-sm" asp-items="Html.GetEnumSelectList<TipoOperador>()">
+                                <option value="">Selecione o tipo de atendimento</option>
+                            </select>
+                            <span asp-validation-for="Tipo" style="margin-top: 0.2rem; font-size: 0.8rem" class="text-danger"></span>
+                        </div>
+                        <div class="form-group" style="margin-top: 1.5rem">
+                            <label asp-for="Nome_Operador" class="control-label">Nome e Sobrenome</label>
+                            <input style="margin-top: 0.5rem" asp-for="Nome_Operador" class="form-control form-control-sm" placeholder="Ex: Gabriel Martins" aria-label=".form-control-sm example" />
+                            <span asp-validation-for="Nome_Operador" style="margin-top: 0.2rem; font-size: 0.8rem" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

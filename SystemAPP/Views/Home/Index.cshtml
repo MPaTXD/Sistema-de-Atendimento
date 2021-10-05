@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container d-flex justify-content-center" style="Height:100vh">
+    <div class="align-self-center">
+        <h1 class="text-center" style="margin-bottom: 3rem">BEM VINDO</h1>
+        <div class="row row-cols-1 row-cols-md-2 g-2">
+            <div class="col-md-6 d-inline-flex p-2 justify-content-end">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2055/2055906.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a asp-controller="Operador" asp-action="Create" class="btn btn-secondary d-grid gap-2">CADASTRAR OPERADOR</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 d-inline-flex p-2 justify-content-start">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://www.marica.rj.gov.br/wp-content/uploads/2017/10/formul%C3%A1rio1.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a asp-controller="Atendimento" asp-action="Create" class="btn btn-secondary d-grid gap-2">CADASTRAR ATENDIMENTO</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 d-inline-flex p-2 justify-content-end">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://static.wixstatic.com/media/e7a4e0_17299e8fb6ab47aab85f7d2bf06b60f2~mv2.png/v1/fill/w_400,h_400,al_c,q_85,usm_0.66_1.00_0.01/inscricao.webp" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a asp-controller="Operador" asp-action="Index" class="btn btn-secondary d-grid gap-2">LISTA DE OPERADORES</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 d-inline-flex p-2 justify-content-start">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124063.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a asp-controller="Atendimento" asp-action="Index" class="btn btn-secondary d-grid gap-2">ATENDIMENTOS REALIZADOS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

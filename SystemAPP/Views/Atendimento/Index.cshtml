@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Entites.Entites.Atendimento>
+
+@{
+    ViewData["Title"] = "Atendimentos";
+}
+
+
+<div class="container d-flex justify-content-center" style="height: 50vh; width: 100vh">
+    <div class="align-self-center">
+        <div class="d-flex justify-content-center" style="margin-bottom: 1.5rem">
+            <h1>Tabela de Atendimentos Realizados</h1>
+        </div>
+        <div class="d-flex justify-content-end">
+            <p>Quantidade de Atendimentos Realizados: @ViewBag.Atendimentos</p>
+        </div>
+        <table class="table table-bordered table-hover" style="width: 90vh">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Formulario.TipoFomulario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operador)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Protocolo_Atendimento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DAtendimento)
+                    </th>
+                    <th>
+                       <div class="d-grid gap-2">
+                          <a class="btn btn-dark btn-sm" asp-controller="HOME" asp-action="Index">VOLTAR</a>
+                       </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Formulario.TipoFomulario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Operador.Nome_Operador)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Protocolo_Atendimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DAtendimento)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdAtendimento">EDITAR</a>
+                        <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.IdAtendimento">DETALHES</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdAtendimento">EXCLUIR</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

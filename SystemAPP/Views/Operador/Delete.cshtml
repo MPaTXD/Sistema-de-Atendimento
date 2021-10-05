@@ -1,0 +1,56 @@
+﻿@model Entites.Entites.Operador
+
+@{
+    ViewData["Title"] = "Excluir Operador";
+}
+
+<div class="container d-flex justify-content-center" style="Height:70vh">
+    <div class="align-self-center">
+        <div class="d-flex justify-content-center" style="margin-bottom: 2.5rem">
+            <h1>EXCLUIR CADASTRO</h1>
+        </div>
+        <div class="d-flex justify-content-center" style="margin-bottom: 1rem">
+            <h4>Você realmente deseja excluir o cadastro de @ViewBag.Operador.Nome_Operador?</h4>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 45rem; ">
+                <div class="card-header d-flex bd-highlight" style="font-size: 1.5rem">
+                    <div class="p-2 flex-grow-1 bd-highlight">
+                        Dados do Operador
+                    </div>
+                    <div class="p-2 flex-fill bd-highlight">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="IdOperador" />
+                                <input type="submit" value="EXCLUIR" class="btn btn-danger" />
+                                <a class="btn btn-dark" asp-controller="Operador" asp-action="Index">VOLTAR</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Matricula_Operador):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Matricula_Operador)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Nome_Operador):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Nome_Operador)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Tipo):
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Tipo)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
