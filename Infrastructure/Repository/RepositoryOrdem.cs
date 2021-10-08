@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.InterfaceEstado;
+﻿using Domain.Interfaces.InterfaceOrdem;
 using Entites.Entites;
 using Infrastructure.Repository.Generics;
 using System;
@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository {
-    public class RepositoryEstado : RepositoryGeneric<Estado>, IEstado {
+    public class RepositoryOrdem : RepositoryGeneric<Ordem>, IOrdem {
+
     }
 }

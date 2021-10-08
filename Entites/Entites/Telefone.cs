@@ -13,8 +13,8 @@ namespace Entites.Entites {
         public string DDD { get; set; }
         public string Numero { get; set; }
 
-        [ForeignKey("Formulario")]
-        public int FormularioId { get; set; }
-        public Formulario Formulario { get; set; }
+        [ForeignKey("Ordem")]
+        public int OrdemId { get; set; }
+        public Ordem Ordem { get; set; }
     }
 }

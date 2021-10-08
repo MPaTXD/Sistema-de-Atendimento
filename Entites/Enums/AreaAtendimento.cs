@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entites.Enums {
     public enum AreaAtendimento {
-        SAC = 1,
-        TELEVENDAS = 2,
-        COBRANÇA = 3,
-        SUPORTE = 4,
-        TELEMARKETING = 5
+        MANUTENCAO = 1,
+        SUPORTE = 2,
+        SOLICITACAO = 3
     }
 }

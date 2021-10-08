@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entites.Notifys {
-    public class EstadoNotify {
+namespace Entites.Enums
+{
+    public enum OrdemStatus
+    {
+        DISPONIVEL = 1,
+        INDISPONIVEL = 2
     }
 }

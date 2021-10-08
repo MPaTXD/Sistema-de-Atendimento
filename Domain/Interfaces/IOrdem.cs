@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Interfaces.InterfaceEndereco {
-    public interface IEndereco : IGeneric<Endereco> {
+namespace Domain.Interfaces.InterfaceOrdem
+{
+    public interface IOrdem : IGeneric<Ordem> {
+
     }
 }

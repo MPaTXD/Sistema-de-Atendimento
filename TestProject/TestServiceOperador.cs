@@ -12,7 +12,7 @@ namespace TestProject {
         [Fact]
         public void TestGenerateMatricula() {
             var date = operador.GerarDate();
-            op.Tipo = TipoOperador.SAC;
+            op.Atendimento = AreaAtendimento.MANUTENCAO;
             var hj = DateTime.Now;
             Assert.Equal(date.ToString("dd/MM/yyyy"), hj.ToString("dd/MM/yyyy"));
             //var matricula = operador.GerarMatricula(date.ToString("dd/MM/yyyy"),op);

@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModel {
     public class ViewModelOperadorAPIList {
-        public List<ViewModelOperadorAPIBase> operador { get; set; }
+        public List<ViewModelOperadorAPIBase> Operador { get; set; }
     }
 }
