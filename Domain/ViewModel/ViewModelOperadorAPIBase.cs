@@ -12,6 +12,6 @@ namespace Entites.ViewModel {
         public int IdOperador { get; set; }
         public int Matricula_Operador { get; set; }
         public string Nome_Operador { get; set; }
-        public AreaAtendimento Atendimento { get; set; }
+        public TipoOperador TipoOperador { get; set; }
     }
 }

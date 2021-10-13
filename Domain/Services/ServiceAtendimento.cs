@@ -19,14 +19,14 @@ namespace Domain.Services {
             _IAtendimento = IAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Ordem ordem) {
+        public async Task AddAtendimento(Atendimento atendimento, Formulario formulario) {
             var date = GerarDate();
             var protocolo = GerarProtocolo(date.ToString());
             var validarInputDate = atendimento.ValidateDate(date.ToString(), "DAtendimento");
             var validarProtocolo = atendimento.ValidateProtocolo(protocolo, "Protocolo_Atendimento");
             if (validarInputDate && validarProtocolo) {
-                atendimento.OrdemId = ordem.IdOrdem;
-                atendimento.DAtendimentoAndamento = date;
+                atendimento.FormularioId = formulario.IdFormulario;
+                atendimento.DAtendimento = date;
                 atendimento.Protocolo_Atendimento = protocolo;
                 await _IAtendimento.Add(atendimento);
             }

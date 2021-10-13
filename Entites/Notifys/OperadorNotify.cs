@@ -36,26 +36,26 @@ namespace Entites.Notifys {
             return false;
         }
 
-        public bool ValidateInputTipoOperador(int valor, string nomePropriedade) {
+        public bool ValidateInputTipoOperador(TipoOperador valor, string nomePropriedade) {
             if (valor == 0 || string.IsNullOrWhiteSpace(nomePropriedade)) {
                 Notifys.Add(new OperadorNotify {
                     Mensagem = "Atendimento Obrigatório!",
                     NomePropriedade = nomePropriedade
                 });
                 return false;
-            }else
-            if (valor > 5) {
-                Notifys.Add(new OperadorNotify {
-                    Mensagem = "Atendimento não existe!",
-                    NomePropriedade = nomePropriedade
-                });
-               return false;
-            }
+            }//else
+            //if (valor > 5) {
+               // Notifys.Add(new OperadorNotify {
+                   // Mensagem = "Atendimento não existe!",
+                    //NomePropriedade = nomePropriedade
+                //});
+               // return false;
+            //}
             return true;
         }
 
         public bool ValidateInputMatricula(int valor, string nomePropriedade) {
-            if (valor == 0 || string.IsNullOrWhiteSpace(nomePropriedade)) {
+            if (valor < 0 || string.IsNullOrWhiteSpace(nomePropriedade)) {
                 Notifys.Add(new OperadorNotify {
                     Mensagem = "Ocorreu um erro ao gerar a Matrícula do Operador!",
                     NomePropriedade = nomePropriedade
