@@ -25,7 +25,9 @@ namespace WebAPI.Controllers {
         }
 
         [Produces("application/json")]
-        [HttpPost("/api/AdicionarOperador")]
+        [HttpPost("/api/CadastrarFuncionario")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<FuncionarioNotify>>> Post(ViewModelCadastroFuncionario funcionario)
         {
             var NovoFuncionario = new Funcionario
@@ -43,7 +45,42 @@ namespace WebAPI.Controllers {
                         Error = true
                     });
             }
+            else
+                return Ok(
+                    new
+                    {
+                        Mensagem = $"Funcionario {funcionario.Nome} cadastrado com sucesso!"
+                    });
 
+        }
+
+        [Produces("application/json")]
+        [HttpPost("/api/BuscarFuncionarioPeloId")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<FuncionarioNotify>>> GetFuncionarioPeloId(int id)
+        {
+            var funcionario = await _IAppFuncionario.BuscarFuncionarioPeloId(id);
+            if (funcionario == null)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existe funcionário com o ID : {id}",
+                        Error = true
+                    });
+            }
+            else
+            {
+                var funcionarioEncontrado = new ViewModelBaseFuncionario();
+
+                funcionarioEncontrado.IdFuncionario = funcionario.IdFuncionario;
+                funcionarioEncontrado.Nome = funcionario.Nome;
+                funcionarioEncontrado.Matricula = funcionario.Matricula;
+                funcionarioEncontrado.Atendimento = funcionario.Atendimento;
+
+                return Ok(funcionarioEncontrado);
+            }
         }
     }
 }

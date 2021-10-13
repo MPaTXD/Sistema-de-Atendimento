@@ -36,16 +36,16 @@ namespace Domain.Services {
         public async Task UpdateFuncionario(Funcionario funcionario) {
             if (ValidarDadosDoFuncionario(funcionario)) 
             {
-                var verificarOperador = await OperadorId(operador.IdOperador);
-                if (operador.Tipo != verificarOperador.Tipo) {
-                    var newTipo = (int)operador.Tipo;
-                    string matricula = $"{verificarOperador.Matricula_Operador}";
-                    StringBuilder newMatricula = new StringBuilder(matricula);
-                    newMatricula.Remove(0,1);
-                    newMatricula.Insert(0, $"{newTipo}");
-                    operador.Matricula_Operador = int.Parse(newMatricula.ToString());
+                var funcionarioExistente = await BuscarFuncionarioPeloId(funcionario.IdFuncionario);
+                if (funcionario.Atendimento != funcionarioExistente.Atendimento) {
+                    var novoAtendimento = (int)funcionario.Atendimento;
+                    string novaMatricula = $"{funcionarioExistente.Matricula}";
+                    StringBuilder novaMatriculaVetor = new StringBuilder(novaMatricula);
+                    novaMatriculaVetor.Remove(0,1);
+                    novaMatriculaVetor.Insert(0, $"{novoAtendimento}");
+                    funcionario.Matricula = long.Parse(novaMatriculaVetor.ToString());
                 }
-                await _IOperador.Update(operador);
+                await _IFuncionario.Update(funcionario);
             }
         }
 

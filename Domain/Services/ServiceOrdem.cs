@@ -1,8 +1,6 @@
-﻿using Domain.Interfaces.InterfaceEndereco;
-using Domain.Interfaces.InterfaceEstado;
+﻿
 using Domain.Interfaces.InterfaceFormulario;
 using Domain.Interfaces.InterfacesServices;
-using Domain.Interfaces.InterfaceTelefone;
 using Entites.Entites;
 using System;
 using System.Collections.Generic;

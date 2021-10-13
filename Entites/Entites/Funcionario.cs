@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Entites.Entites {
-    public class Funcionario : FuncionarioNotify {
+    public class Funcionario : FuncionarioNotify 
+    {
+        [Key]
         public int IdFuncionario { get; set; }
         public long Matricula { get; set; }
         public string Nome { get; set; }

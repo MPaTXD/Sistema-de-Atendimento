@@ -13,23 +13,12 @@ namespace Domain.Services {
 
         private readonly IAtendimento _IAtendimento;
 
-        private int Nprotocolo = 00;
-
         public ServiceAtendimento(IAtendimento IAtendimento) {
             _IAtendimento = IAtendimento;
         }
 
         public async Task AddAtendimento(Atendimento atendimento, Ordem formulario) {
-            var date = GerarDate();
-            var protocolo = GerarProtocolo(date.ToString());
-            var validarInputDate = atendimento.ValidateDate(date.ToString(), "DAtendimento");
-            var validarProtocolo = atendimento.ValidateProtocolo(protocolo, "Protocolo_Atendimento");
-            if (validarInputDate && validarProtocolo) {
-                atendimento.FormularioId = formulario.IdFormulario;
-                atendimento.DAtendimento = date;
-                atendimento.Protocolo_Atendimento = protocolo;
-                await _IAtendimento.Add(atendimento);
-            }
+            
         }
 
         public Task<List<Atendimento>> ListAtendimento() {
@@ -38,7 +27,7 @@ namespace Domain.Services {
 
         public int GerarProtocolo(string date) {
             string[] formateDate = date.Split('/');
-            string protocolo = $"{formateDate[0].ToString()}{formateDate[1].ToString()}{formateDate[2].ToString()}{Nprotocolo++}";
+            string protocolo = $"{formateDate[0].ToString()}{formateDate[1].ToString()}{formateDate[2].ToString()}";
             return int.Parse(protocolo);
         }
 

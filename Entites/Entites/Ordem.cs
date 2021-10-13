@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Entites.Entites {
     
-    public class Ordem : OrdemNotify {
+    public class Ordem : OrdemNotify 
+    {
+        [Key]
         public int IdFormulario { get; set; }
         public Atendimento Atendimento { get; set; }
         public string Motivo { get; set; }

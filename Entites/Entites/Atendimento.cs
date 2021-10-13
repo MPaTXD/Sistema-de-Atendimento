@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Entites.Entites {
     public class Atendimento : AtendimentoNotify {
+        [Key]
         public int IdAtendimento { get; set; }
         public int Protocolo { get; set; }
         public StatusDoAtendimento Status { get; set; }

@@ -10,7 +10,7 @@ namespace Entites.ViewModel {
     public class ViewModelBaseFuncionario {
 
         public int IdFuncionario { get; set; }
-        public int Matricula { get; set; }
+        public long Matricula { get; set; }
         public string Nome { get; set; }
         public Atendimentos Atendimento { get; set; }
     }
