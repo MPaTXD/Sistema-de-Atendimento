@@ -6,13 +6,13 @@ using Xunit;
 
 namespace TestProject {
     public class TestServiceOperador {
-        Operador op = new Operador();
-        ServiceOperador operador = new ServiceOperador();
+        Funcionario op = new Funcionario();
+        ServiceFuncionario operador = new ServiceFuncionario();
 
         [Fact]
         public void TestGenerateMatricula() {
             var date = operador.GerarDate();
-            op.Tipo = TipoOperador.SAC;
+            op.Tipo = Atendimentos.SAC;
             var hj = DateTime.Now;
             Assert.Equal(date.ToString("dd/MM/yyyy"), hj.ToString("dd/MM/yyyy"));
             //var matricula = operador.GerarMatricula(date.ToString("dd/MM/yyyy"),op);

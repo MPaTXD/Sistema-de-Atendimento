@@ -38,13 +38,13 @@ namespace WebAPI {
 
             // INTERFACE E REPOSITORY
             services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGeneric<>));
-            services.AddSingleton<IOperador, RepositoryOperador>();
+            services.AddSingleton<IFuncionario, RepositoryFuncionario>();
 
             // SERVIÇOS INTERFACE
-            services.AddSingleton<IServiceOperador, ServiceOperador>();
+            services.AddSingleton<IServiceFuncionario, ServiceFuncionario>();
 
             // INTERFACE APP
-            services.AddSingleton<IAppOperador, AppOperador>();
+            services.AddSingleton<IAppFuncionario, AppFuncionario>();
 
             services.AddControllers();
             services.AddSwaggerGen(c => {

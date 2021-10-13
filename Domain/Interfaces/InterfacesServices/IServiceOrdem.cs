@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.InterfacesServices {
-    public interface IServiceAtendimento {
-        Task AddAtendimento(Atendimento atendimento, Ordem formulario);
-        Task<List<Atendimento>> ListAtendimento();
+    public interface IServiceOrdem {
+        Task AddFormulario(Ordem formulario);
+        Task UpdateFormulario(Ordem formulario);
     }
 }

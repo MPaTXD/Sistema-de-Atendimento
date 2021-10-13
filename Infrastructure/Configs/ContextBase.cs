@@ -14,12 +14,9 @@ namespace Infrastructure.Configs {
         public ContextBase(DbContextOptions<ContextBase> options) : base(options) {
         }
 
-        public DbSet<Operador> Operador { get; set; }
-        public DbSet<Formulario> Formulario { get; set; }
+        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Ordem> Ordem { get; set; }
         public DbSet<Atendimento> Atendimento { get; set; }
-        public DbSet<Estado> Estado { get; set; }
-        public DbSet<Endereco> Endereco { get; set; }
-        public DbSet<Telefone> Telefone { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {

@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace App.Interfaces {
-    public interface IAppAtendimento : IAppGeneric<Atendimento> {
-        Task AddAtendimento(Atendimento atendimento, Ordem formulario);
-        Task<List<Atendimento>> ListAtendimento();
+    public interface IAppOrdem : IAppGeneric<Ordem> {
+        Task AddFormulario(Ordem formulario);
+        Task UpdateFormulario(Ordem formulario);
     }
 }

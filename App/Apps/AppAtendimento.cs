@@ -19,7 +19,7 @@ namespace App.Apps {
             _IServiceAtendimento = IServiceAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Formulario formulario) {
+        public async Task AddAtendimento(Atendimento atendimento, Ordem formulario) {
             await _IServiceAtendimento.AddAtendimento(atendimento, formulario);
         }
         public async Task<List<Atendimento>> ListAtendimento() {

@@ -19,7 +19,7 @@ namespace Domain.Services {
             _IAtendimento = IAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Formulario formulario) {
+        public async Task AddAtendimento(Atendimento atendimento, Ordem formulario) {
             var date = GerarDate();
             var protocolo = GerarProtocolo(date.ToString());
             var validarInputDate = atendimento.ValidateDate(date.ToString(), "DAtendimento");
