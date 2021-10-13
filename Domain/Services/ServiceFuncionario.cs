@@ -50,7 +50,6 @@ namespace Domain.Services {
         }
 
        
-
         public bool ValidarDadosDoFuncionario(Funcionario funcionario) {
             var validarNomeDoFuncionario = funcionario.ValidarNomeDoFuncionario(funcionario.Nome);
             var validarAtendimentoDoFuncionario = funcionario.ValidarAtendimentoDoFuncionario((int)funcionario.Atendimento);

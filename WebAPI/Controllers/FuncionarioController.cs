@@ -55,7 +55,39 @@ namespace WebAPI.Controllers {
         }
 
         [Produces("application/json")]
-        [HttpPost("/api/BuscarFuncionarioPeloId")]
+        [HttpGet("/api/ListarFuncionarios")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<FuncionarioNotify>>> GetListaDeFuncionarios()
+        {
+            var funcionarios = await _IAppFuncionario.List();
+            if (funcionarios.Count == 0)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existe funcionários cadastrados no sistema!",
+                        Error = true
+                    });
+            }
+            else
+            {
+                var listaDeFuncionarios = new List<ViewModelBaseFuncionario>();
+                foreach (var objetoFuncionario in funcionarios)
+                {
+                    var funcionario = new ViewModelBaseFuncionario();
+                    funcionario.IdFuncionario = objetoFuncionario.IdFuncionario;
+                    funcionario.Nome = objetoFuncionario.Nome;
+                    funcionario.Matricula = objetoFuncionario.Matricula;
+                    funcionario.Atendimento = objetoFuncionario.Atendimento;
+                    listaDeFuncionarios.Add(funcionario);
+                }
+                return Ok(listaDeFuncionarios);
+            }
+        }
+
+        [Produces("application/json")]
+        [HttpGet("/api/BuscarFuncionarioPeloId")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<List<FuncionarioNotify>>> GetFuncionarioPeloId(int id)
@@ -80,6 +112,38 @@ namespace WebAPI.Controllers {
                 funcionarioEncontrado.Atendimento = funcionario.Atendimento;
 
                 return Ok(funcionarioEncontrado);
+            }
+        }
+
+        [Produces("application/json")]
+        [HttpGet("/api/BuscarFuncionarioPeloAtendimento")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<FuncionarioNotify>>> GetFuncionarioPeloAtendimento(Atendimentos atendimento)
+        {
+            var funcionarios = await _IAppFuncionario.ListarFuncionariosPeloAtendimento(atendimento);
+            if (funcionarios.Count == 0)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existe funcionário do atendimento {atendimento} cadastrados no sistema!",
+                        Error = true
+                    });
+            }
+            else
+            {
+                var listaDeFuncionarios = new List<ViewModelBaseFuncionario>();
+                foreach (var objetoFuncionario in funcionarios)
+                {
+                    var funcionario = new ViewModelBaseFuncionario();
+                    funcionario.IdFuncionario = objetoFuncionario.IdFuncionario;
+                    funcionario.Nome = objetoFuncionario.Nome;
+                    funcionario.Matricula = objetoFuncionario.Matricula;
+                    funcionario.Atendimento = objetoFuncionario.Atendimento;
+                    listaDeFuncionarios.Add(funcionario);
+                }
+                return Ok(listaDeFuncionarios);
             }
         }
     }
