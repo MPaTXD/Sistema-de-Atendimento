@@ -9,6 +9,6 @@ namespace Domain.ViewModel {
     public class ViewModelOperadorAPICadastro {
 
         public string Nome_Operador { get; set; }
-        public AreaAtendimento Atendimento { get; set; }
+        public TipoOperador TipoOperador { get; set; }
     }
 }

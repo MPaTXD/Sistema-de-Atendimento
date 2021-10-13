@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Entites.Enums {
-    public enum AreaAtendimento {
+    public enum TipoOperador {
         SAC = 1,
         TELEVENDAS = 2,
         COBRANÇA = 3,

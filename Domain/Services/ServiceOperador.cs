@@ -21,76 +21,59 @@ namespace Domain.Services {
 
         public async Task AddOperador(Operador operador) {
             if (ValidarCamposInput(operador)) {
-                var tipoOperador = (int)operador.Atendimento;
+                var tipoOperador = (int)operador.Tipo;
                 var matricula = GerarMatricula(tipoOperador);
-                var verificarMatricula = operador.ValidateInputMatricula(matricula, "Matricula_Operador");
-                if (verificarMatricula)
-                {
-                    operador.Matricula_Operador = matricula;
-                    await _IOperador.Add(operador);
+                if (await OperadorMatricula(matricula)) {
+                    matricula++;
                 }
+                operador.Matricula_Operador = matricula;
+                await _IOperador.Add(operador);
             }
         }
 
         public async Task UpdateOperador(Operador operador) {
             if (ValidarCamposInput(operador)) {
                 var verificarOperador = await OperadorId(operador.IdOperador);
-                if (operador.Atendimento != verificarOperador.Atendimento) {
-                    var newTipo = (int)operador.Atendimento;
+                if (operador.Tipo != verificarOperador.Tipo) {
+                    var newTipo = (int)operador.Tipo;
                     string matricula = $"{verificarOperador.Matricula_Operador}";
                     StringBuilder newMatricula = new StringBuilder(matricula);
                     newMatricula.Remove(0,1);
                     newMatricula.Insert(0, $"{newTipo}");
-                    operador.Matricula_Operador = VerificarMatricula(newMatricula.ToString());
+                    operador.Matricula_Operador = int.Parse(newMatricula.ToString());
                 }
                 await _IOperador.Update(operador);
             }
         }
 
+        public async Task<bool> OperadorMatricula(int matricula) {
+            return await _IOperador.OperadorMatricula(o => o.Matricula_Operador == matricula);
+        }
+
+        public async Task<Operador> OperadorId(int Id) {
+            return await _IOperador.OperadorId(o => o.IdOperador == Id);
+        }
+
         public bool ValidarCamposInput(Operador operador) {
-            var tipo = (int)operador.Atendimento;
             var validarFormatoNome = operador.ValidateName(operador.Nome_Operador, "Nome_Operador");
-            var validarTipoOperador = operador.ValidateInputTipoOperador(tipo, "Tipo");
+            var validarTipoOperador = operador.ValidateInputTipoOperador(operador.Tipo, "Tipo");
             if (validarFormatoNome && validarTipoOperador) {
                 return true;
             }
             return false;
         }
-        
-        public int VerificarMatricula(string matricula)
-        {
-            var intMatricula = int.Parse(matricula);
-            var verificar = OperadorMatricula(intMatricula);
-            if (verificar != null)
-            {
-                intMatricula++;
-            }
-            return intMatricula;
-        }
-
 
         public int GerarMatricula(int tipo) {
             Random r = new Random();
             var dataCadastro = GerarDate().ToString("yyyy");
             string[] formateDate = dataCadastro.Split('/');
             string matricula = $"{tipo}{formateDate[0]}{r.Next(1,100)}";
-            var intMatricula = VerificarMatricula(matricula);
-            return intMatricula;
+            return int.Parse(matricula);
         }
 
         public DateTime GerarDate() {
             var date = DateTime.Now;
             return date;
-        }
-
-        public async Task<bool> OperadorMatricula(int matricula)
-        {
-            return await _IOperador.OperadorMatricula(o => o.Matricula_Operador == matricula);
-        }
-
-        public async Task<Operador> OperadorId(int Id)
-        {
-            return await _IOperador.OperadorId(o => o.IdOperador == Id);
         }
     }
 }
