@@ -38,8 +38,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("OrdemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Protocolo")
-                        .HasColumnType("int");
+                    b.Property<long>("Protocolo")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    [Migration("20211014132908_InitialCreate")]
+    [Migration("20211014172844_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("OrdemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Protocolo")
-                        .HasColumnType("int");
+                    b.Property<long>("Protocolo")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

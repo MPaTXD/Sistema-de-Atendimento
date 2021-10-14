@@ -1,6 +1,7 @@
 ﻿using App.Interfaces;
 using Domain.Interfaces;
 using Domain.Interfaces.InterfacesServices;
+using Domain.ViewModel;
 using Entites.Entites;
 using Entites.Enums;
 using System;
@@ -20,12 +21,13 @@ namespace App.Apps {
             _IServiceFuncionario = IServiceFuncionario;
         }
 
-        public async Task AddFuncionario(Funcionario funcionario) {
+        public async Task AddFuncionario(ViewModelCadastroFuncionario funcionario) {
             await _IServiceFuncionario.AddFuncionario(funcionario);
         }
 
-        public async Task UpdateFuncionario(Funcionario funcionario) {
-            await _IServiceFuncionario.UpdateFuncionario(funcionario);
+        public async Task UpdateFuncionario(ViewModelCadastroFuncionario funcionario, int id)
+        {
+            await _IServiceFuncionario.UpdateFuncionario(funcionario, id);
         }
 
         public async Task<List<Funcionario>> ListarFuncionariosPeloAtendimento(Atendimentos atendimento)

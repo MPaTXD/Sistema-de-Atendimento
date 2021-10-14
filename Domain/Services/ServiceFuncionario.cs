@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Interfaces.InterfacesServices;
+using Domain.ViewModel;
 using Entites.Entites;
 using Entites.Enums;
 using System;
@@ -20,7 +21,7 @@ namespace Domain.Services {
 
         }
 
-        public async Task AddFuncionario(Funcionario funcionario) {
+        public async Task AddFuncionario(ViewModelCadastroFuncionario funcionario) {
             if (ValidarDadosDoFuncionario(funcionario))
             {
                 var atendimentoDoFuncionario = (int)funcionario.Atendimento;
@@ -28,29 +29,36 @@ namespace Domain.Services {
                 if (await VerificarFuncionarioPelaMatricula(matriculaDoFuncionario)) {
                     matriculaDoFuncionario++;
                 }
-                funcionario.Matricula = matriculaDoFuncionario;
-                await _IFuncionario.Add(funcionario);
+                var novoFuncionario = new Funcionario
+                {
+                    Nome = funcionario.Nome,
+                    Matricula = matriculaDoFuncionario,
+                    Atendimento = funcionario.Atendimento
+                };
+                await _IFuncionario.Add(novoFuncionario);
             }
         }
 
-        public async Task UpdateFuncionario(Funcionario funcionario) {
+        public async Task UpdateFuncionario(ViewModelCadastroFuncionario funcionario, int id) {
             if (ValidarDadosDoFuncionario(funcionario)) 
             {
-                var funcionarioExistente = await BuscarFuncionarioPeloId(funcionario.IdFuncionario);
+                var funcionarioExistente = await BuscarFuncionarioPeloId(id);
                 if (funcionario.Atendimento != funcionarioExistente.Atendimento) {
                     var novoAtendimento = (int)funcionario.Atendimento;
                     string novaMatricula = $"{funcionarioExistente.Matricula}";
                     StringBuilder novaMatriculaVetor = new StringBuilder(novaMatricula);
                     novaMatriculaVetor.Remove(0,1);
                     novaMatriculaVetor.Insert(0, $"{novoAtendimento}");
-                    funcionario.Matricula = long.Parse(novaMatriculaVetor.ToString());
+                    funcionarioExistente.Matricula = long.Parse(novaMatriculaVetor.ToString());
+                    funcionarioExistente.Nome = funcionario.Nome;
+                    funcionarioExistente.Atendimento = funcionario.Atendimento;
                 }
-                await _IFuncionario.Update(funcionario);
+                await _IFuncionario.Update(funcionarioExistente);
             }
         }
 
        
-        public bool ValidarDadosDoFuncionario(Funcionario funcionario) {
+        public bool ValidarDadosDoFuncionario(ViewModelCadastroFuncionario funcionario) {
             var validarNomeDoFuncionario = funcionario.ValidarNomeDoFuncionario(funcionario.Nome);
             var validarAtendimentoDoFuncionario = funcionario.ValidarAtendimentoDoFuncionario((int)funcionario.Atendimento);
             if (validarNomeDoFuncionario && validarAtendimentoDoFuncionario) {
@@ -61,9 +69,9 @@ namespace Domain.Services {
 
         public long GerarMatriculaDoFuncionario(int atendimentoDoFuncionario) {
             Random numeroAleatorio = new Random();
-            var dataCadastroDoFuncionario = GerarData().ToString("yyyy/MM/dd");
+            var dataCadastroDoFuncionario = GerarData().ToString("yyyy");
             string[] dataDeCadastroFormatada = dataCadastroDoFuncionario.Split('/');
-            string matriculaDoFuncionario = $"{atendimentoDoFuncionario}{dataDeCadastroFormatada[0]}{dataDeCadastroFormatada[1]}{dataDeCadastroFormatada[2]}{numeroAleatorio.Next(1,100)}";
+            string matriculaDoFuncionario = $"{atendimentoDoFuncionario}{dataDeCadastroFormatada[0]}{numeroAleatorio.Next(1,100)}";
             return long.Parse(matriculaDoFuncionario);
         }
 

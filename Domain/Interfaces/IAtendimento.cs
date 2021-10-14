@@ -11,5 +11,6 @@ namespace Domain.Interfaces.InterfaceAtendimento {
     public interface IAtendimento : IGeneric<Atendimento> {
         Task<List<Atendimento>> ListarAtendimentos();
         Task<bool> VerificarAtendimentoPeloProtocolo(Expression<Func<Atendimento, bool>> exAtendimento);
+        Task<Atendimento> ListarAtendimentosPeloProtocolo(Expression<Func<Atendimento, bool>> exAtendimento);
     }
 }

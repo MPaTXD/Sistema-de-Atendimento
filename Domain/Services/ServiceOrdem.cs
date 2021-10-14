@@ -1,6 +1,7 @@
 ﻿
 using Domain.Interfaces.InterfaceFormulario;
 using Domain.Interfaces.InterfacesServices;
+using Domain.ViewModel.Ordem;
 using Entites.Entites;
 using Entites.Enums;
 using System;
@@ -20,24 +21,37 @@ namespace Domain.Services {
             _IOrdem = IOrdem;
         }
 
-        public async Task AddOrdem(Ordem ordem)
+        public async Task AddOrdem(ViewModelCadastroOrdem ordem)
         {
             if (ValidarDadosDaOrdem(ordem))
             {
-                ordem.DataDeLancamento = GerarData();
-                ordem.Status = StatusDaOrdem.DISPONIVEL;
-                await _IOrdem.Add(ordem);
+                var novaOrdem = new Ordem
+                {
+                    Atendimento = ordem.Atendimento,
+                    Titulo = ordem.Titulo,
+                    Descricao = ordem.Descricao,
+                    Solicitante = ordem.Solicitante,
+                    Status = StatusDaOrdem.DISPONIVEL,
+                    DataDeLancamento = GerarData()
+
+                };
+                await _IOrdem.Add(novaOrdem);
             }
         }
-        public async Task UpdateOrdem(Ordem ordem) 
+        public async Task UpdateOrdem(ViewModelCadastroOrdem ordem, int id) 
         {
             if (ValidarDadosDaOrdem(ordem))
             {
-                await _IOrdem.Update(ordem);
+                var ordemExistente = await _IOrdem.SearchId(id);
+                ordemExistente.Atendimento = ordem.Atendimento;
+                ordemExistente.Titulo = ordem.Titulo;
+                ordemExistente.Descricao = ordem.Descricao;
+                ordemExistente.Solicitante = ordem.Solicitante;
+                await _IOrdem.Update(ordemExistente);
             }
         }
 
-        public bool ValidarDadosDaOrdem(Ordem ordem)
+        public bool ValidarDadosDaOrdem(ViewModelCadastroOrdem ordem)
         {
             var validarTituloDaOrdem = ordem.ValidarTituloDaOrdem(ordem.Titulo);
             var validarAtendimentoDaOrdem = ordem.ValidarAtendimentoDaOrdem((int)ordem.Atendimento);

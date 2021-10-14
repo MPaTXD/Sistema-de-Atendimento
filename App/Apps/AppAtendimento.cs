@@ -19,35 +19,34 @@ namespace App.Apps {
             _IServiceAtendimento = IServiceAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Ordem ordem, Funcionario funcionario) {
-            await _IServiceAtendimento.AddAtendimento(atendimento, ordem, funcionario);
+        public async Task AddAtendimento(Ordem ordem, Funcionario funcionario) {
+            await _IServiceAtendimento.AddAtendimento(ordem, funcionario);
         }
         public async Task<List<Atendimento>> ListarAtendimentos() {
             return await _IAtendimento.ListarAtendimentos();
         }
-
+        public async Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo)
+        {
+            return await _IAtendimento.VerificarAtendimentoPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
+        }
+        public async Task<Atendimento> ListarAtendimentosPeloProtocolo(long protocolo)
+        {
+            return await _IAtendimento.ListarAtendimentosPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
+        }
         public async Task Add(Atendimento Object) {
             await _IAtendimento.Add(Object);
         }
         public async Task Update(Atendimento Object) {
             await _IAtendimento.Update(Object);
         }
-
         public async Task Delete(Atendimento Object) {
             await _IAtendimento.Delete(Object);
         }
-
         public async Task<List<Atendimento>> List() {
             return await _IAtendimento.List();
         }
-
         public async Task<Atendimento> SearchId(int Id) {
             return await _IAtendimento.SearchId(Id);
-        }
-
-        public Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo)
-        {
-            throw new NotImplementedException();
         }
     }
 }

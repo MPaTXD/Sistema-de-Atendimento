@@ -47,7 +47,7 @@ namespace Infrastructure.Migrations
                 {
                     IdAtendimento = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Protocolo = table.Column<int>(type: "int", nullable: false),
+                    Protocolo = table.Column<long>(type: "bigint", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     DataDeLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataDeConclusao = table.Column<DateTime>(type: "datetime2", nullable: false),

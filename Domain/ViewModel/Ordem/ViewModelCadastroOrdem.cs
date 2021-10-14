@@ -1,4 +1,5 @@
 ﻿using Entites.Enums;
+using Entites.Notifys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModel.Ordem
 {
-    public class ViewModelCadastroOrdem
+    public class ViewModelCadastroOrdem : OrdemNotify
     {
         public Atendimentos Atendimento { get; set; }
         public string Titulo { get; set; }

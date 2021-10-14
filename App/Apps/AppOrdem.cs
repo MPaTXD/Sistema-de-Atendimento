@@ -1,6 +1,7 @@
 ﻿using App.Interfaces;
 using Domain.Interfaces.InterfaceFormulario;
 using Domain.Interfaces.InterfacesServices;
+using Domain.ViewModel.Ordem;
 using Entites.Entites;
 using Entites.Enums;
 using System;
@@ -20,11 +21,12 @@ namespace App.Apps {
             _IServiceOrdem = IServiceOrdem;
         }
 
-        public async Task AddOrdem(Ordem ordem) {
+        public async Task AddOrdem(ViewModelCadastroOrdem ordem) {
             await _IServiceOrdem.AddOrdem(ordem);
         }
-        public async Task UpdateOrdem(Ordem ordem) {
-            await _IServiceOrdem.UpdateOrdem(ordem);
+        public async Task UpdateOrdem(ViewModelCadastroOrdem ordem, int id)
+        {
+            await _IServiceOrdem.UpdateOrdem(ordem, id);
         }
         public async Task<List<Ordem>> ListarOrdemPeloAtendimento(Atendimentos atendimento)
         {

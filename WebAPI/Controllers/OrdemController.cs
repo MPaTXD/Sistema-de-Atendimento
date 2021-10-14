@@ -29,19 +29,12 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<OrdemNotify>>> Post(ViewModelCadastroOrdem ordem)
         {
-            var novaOrdem = new Ordem
-            {
-                Atendimento = ordem.Atendimento,
-                Titulo = ordem.Titulo,
-                Descricao = ordem.Descricao,
-                Solicitante = ordem.Solicitante
-            };
-            await _IAppOrdem.AddOrdem(novaOrdem);
-            if (novaOrdem.Notifys.Any())
+            await _IAppOrdem.AddOrdem(ordem);
+            if (ordem.Notifys.Any())
             {
                 return BadRequest(new
                 {
-                    novaOrdem.Notifys,
+                    ordem.Notifys,
                     Error = true
                 });
             }
@@ -50,7 +43,7 @@ namespace WebAPI.Controllers
                 return Ok(
                     new
                     {
-                        Mensagem = $"O cadastro da ordem {novaOrdem.Titulo} foi bem sucedido!"
+                        Mensagem = $"O cadastro da ordem {ordem.Titulo} foi bem sucedido!"
                     });
             }
         }
@@ -74,21 +67,13 @@ namespace WebAPI.Controllers
             }
             else 
             {
-                var ordemEditada = new Ordem
-                {
-                    IdOrdem = ordemExistente.IdOrdem,
-                    Atendimento = ordem.Atendimento,
-                    Titulo = ordem.Titulo,
-                    Descricao = ordem.Descricao,
-                    Solicitante = ordem.Solicitante
-                };
-                await _IAppOrdem.UpdateOrdem(ordemEditada);
-                if (ordemEditada.Notifys.Any())
+                await _IAppOrdem.UpdateOrdem(ordem, id);
+                if (ordem.Notifys.Any())
                 {
                     return BadRequest(
                         new
                         {
-                            ordemEditada.Notifys,
+                            ordem.Notifys,
                             Error = true
                         });
                 }

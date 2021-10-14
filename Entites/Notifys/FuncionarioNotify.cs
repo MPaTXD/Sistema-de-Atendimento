@@ -12,10 +12,12 @@ namespace Entites.Notifys {
 
         public FuncionarioNotify() {
             Notifys = new List<FuncionarioNotify>();
+
         }
 
         [NotMapped]
-        public string Mensagem { get; set; }
+        private string _Mensagem { get; set; }
+        public string Mensagem => _Mensagem;
 
         [NotMapped]
         public List<FuncionarioNotify> Notifys;
@@ -27,7 +29,7 @@ namespace Entites.Notifys {
                 return true;
             }
             Notifys.Add(new FuncionarioNotify {
-                Mensagem = "Nome do funcionário com formato inválido!",
+                _Mensagem = "Nome do funcionário com formato inválido!",
             });
             return false;
         }
@@ -35,13 +37,13 @@ namespace Entites.Notifys {
         public bool ValidarAtendimentoDoFuncionario(int valor) {
             if (valor == 0) {
                 Notifys.Add(new FuncionarioNotify {
-                    Mensagem = "Atendimento Obrigatório!",
+                    _Mensagem = "Atendimento Obrigatório!",
                 });
                 return false;
             }else
             if (valor > 7) {
                Notifys.Add(new FuncionarioNotify {
-                   Mensagem = "Atendimento não cadastrado no sistema!",
+                   _Mensagem = "Atendimento não cadastrado no sistema!",
                 });
                return false;
             }

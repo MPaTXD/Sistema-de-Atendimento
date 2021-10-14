@@ -30,18 +30,13 @@ namespace WebAPI.Controllers {
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<FuncionarioNotify>>> Post(ViewModelCadastroFuncionario funcionario)
         {
-            var novoFuncionario = new Funcionario
-            {
-                Nome = funcionario.Nome,
-                Atendimento = funcionario.Atendimento
-            };
-            await _IAppFuncionario.AddFuncionario(novoFuncionario);
-            if (novoFuncionario.Notifys.Any())
+            await _IAppFuncionario.AddFuncionario(funcionario);
+            if (funcionario.Notifys.Any())
             {
                 return BadRequest(
                     new
                     {
-                        novoFuncionario.Notifys,
+                        funcionario.Notifys,
                         Error = true
                     });
             }
@@ -73,19 +68,13 @@ namespace WebAPI.Controllers {
             }
             else
             {
-                var funcionarioEditado = new Funcionario
-                {
-                    IdFuncionario = funcionarioExistente.IdFuncionario,
-                    Nome = funcionario.Nome,
-                    Atendimento = funcionario.Atendimento
-                };
-                await _IAppFuncionario.UpdateFuncionario(funcionarioEditado);
-                if (funcionarioEditado.Notifys.Any())
+                await _IAppFuncionario.UpdateFuncionario(funcionario, id);
+                if (funcionario.Notifys.Any())
                 {
                     return BadRequest(
                         new
                         {
-                            funcionarioEditado.Notifys,
+                            funcionario.Notifys,
                             Error = true
                         });
                 }
@@ -129,7 +118,7 @@ namespace WebAPI.Controllers {
         [HttpGet("/api/ListarFuncionarios")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<FuncionarioNotify>>> GetListaDeFuncionarios()
+        public async Task<ActionResult<List<ViewModelBaseFuncionario>>> GetListaDeFuncionarios()
         {
             var funcionarios = await _IAppFuncionario.List();
             if (funcionarios.Count == 0)

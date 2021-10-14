@@ -18,12 +18,21 @@ namespace Domain.Services {
             _IAtendimento = IAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Ordem ordem, Funcionario funcionario) {
+        public async Task AddAtendimento(Ordem ordem, Funcionario funcionario) {
             var protocoloDoAtendimento = GerarProtocolo((int)ordem.Atendimento, funcionario.Matricula);
-            atendimento.Protocolo = protocoloDoAtendimento;
-            atendimento.Status = StatusDoAtendimento.ANDAMENTO;
-            atendimento.DataDeLancamento = GerarData();
-            await _IAtendimento.Add(atendimento);
+            if (await VerificarAtendimentoPeloProtocolo(protocoloDoAtendimento))
+            {
+                protocoloDoAtendimento++;
+            }
+            var novoAtendimento = new Atendimento
+            {
+                OrdemId = ordem.IdOrdem,
+                FuncionarioId = funcionario.IdFuncionario,
+                Protocolo = protocoloDoAtendimento,
+                Status = StatusDoAtendimento.ANDAMENTO,
+                DataDeLancamento = GerarData()
+            };
+            await _IAtendimento.Add(novoAtendimento);
         }
 
         public async Task<List<Atendimento>> ListarAtendimentos() {
@@ -32,7 +41,7 @@ namespace Domain.Services {
 
         public long GerarProtocolo(int atendimento, long matriculaDoFuncionario) {
             Random numeroAleatorio = new Random();
-            string protocoloDoAtendimento = $"{atendimento}{matriculaDoFuncionario}{numeroAleatorio.Next(1,100)}";
+            string protocoloDoAtendimento = $"{atendimento}{matriculaDoFuncionario}{numeroAleatorio.Next(1,10)}";
             return long.Parse(protocoloDoAtendimento);
         }
 
@@ -40,6 +49,15 @@ namespace Domain.Services {
             var data = new DateTime();
             return data;
         }
-        
+
+        public async Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo)
+        {
+            return await _IAtendimento.VerificarAtendimentoPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
+        }
+
+        public async Task<Atendimento> ListarAtendimentosPeloProtocolo(long protocolo)
+        {
+            return await _IAtendimento.ListarAtendimentosPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Infrastructure.Repository {
         public RepositoryAtendimento() {
             _optionsBuilder = new DbContextOptions<ContextBase>();
         }
-        public async Task<List<Atendimento>> ListarAtendimentos(Expression<Func<Atendimento, bool>> exAtendimento) 
+        public async Task<List<Atendimento>> ListarAtendimentosPeloStatus(Expression<Func<Atendimento, bool>> exAtendimento) 
         {
             using (var db = new ContextBase(_optionsBuilder)) 
             {
@@ -25,11 +25,19 @@ namespace Infrastructure.Repository {
             }
         }
 
-        public async Task<List<Atendimento>> ListarAtendimentosPeloStatus()
+        public async Task<List<Atendimento>> ListarAtendimentos()
         {
             using (var db = new ContextBase(_optionsBuilder))
             {
                 return await db.Atendimento.Include(ordem => ordem.Ordem).Include(funcionario => funcionario.Funcionario).AsNoTracking().ToListAsync();
+            }
+        }
+
+        public async Task<Atendimento> ListarAtendimentosPeloProtocolo(Expression<Func<Atendimento, bool>> exAtendimento)
+        {
+            using (var db = new ContextBase(_optionsBuilder))
+            {
+                return await db.Atendimento.Where(exAtendimento).Include(ordem => ordem.Ordem).Include(funcionario => funcionario.Funcionario).AsNoTracking().FirstOrDefaultAsync();
             }
         }
 

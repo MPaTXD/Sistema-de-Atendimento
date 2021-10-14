@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Entites.Entites {
-    public class Atendimento : AtendimentoNotify {
+    public class Atendimento {
         [Key]
         public int IdAtendimento { get; set; }
         public long Protocolo { get; set; }
