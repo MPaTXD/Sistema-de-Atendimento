@@ -2,6 +2,7 @@ using App.Apps;
 using App.Interfaces;
 using Domain.Interfaces;
 using Domain.Interfaces.Generics;
+using Domain.Interfaces.InterfaceFormulario;
 using Domain.Interfaces.InterfacesServices;
 using Domain.Services;
 using Infrastructure.Configs;
@@ -40,12 +41,15 @@ namespace WebAPI {
             // INTERFACE E REPOSITORY
             services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGeneric<>));
             services.AddSingleton<IFuncionario, RepositoryFuncionario>();
+            services.AddSingleton<IOrdem, RepositoryOrdem>();
 
             // SERVIÇOS INTERFACE
             services.AddSingleton<IServiceFuncionario, ServiceFuncionario>();
+            services.AddSingleton<IServiceOrdem, ServiceOrdem>();
 
             // INTERFACE APP
             services.AddSingleton<IAppFuncionario, AppFuncionario>();
+            services.AddSingleton<IAppOrdem, AppOrdem>();
 
             services.AddControllers();
             services.AddSwaggerGen(c => {

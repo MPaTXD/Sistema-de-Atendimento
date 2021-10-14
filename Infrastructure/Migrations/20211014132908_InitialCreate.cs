@@ -26,17 +26,19 @@ namespace Infrastructure.Migrations
                 name: "Ordem",
                 columns: table => new
                 {
-                    IdFormulario = table.Column<int>(type: "int", nullable: false)
+                    IdOrdem = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Motivo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Atendimento = table.Column<int>(type: "int", nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Solicitante = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     DataDeLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataDeConclusao = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ordem", x => x.IdFormulario);
+                    table.PrimaryKey("PK_Ordem", x => x.IdOrdem);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +67,7 @@ namespace Infrastructure.Migrations
                         name: "FK_Atendimento_Ordem_OrdemId",
                         column: x => x.OrdemId,
                         principalTable: "Ordem",
-                        principalColumn: "IdFormulario",
+                        principalColumn: "IdOrdem",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -77,8 +79,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Atendimento_OrdemId",
                 table: "Atendimento",
-                column: "OrdemId",
-                unique: true);
+                column: "OrdemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -55,6 +55,7 @@ namespace Entites.Notifys {
                 if (item == atendimento)
                 {
                     atendimentoEncontrado++;
+                    break;
                 } 
             }
             if (atendimentoEncontrado == 0)
@@ -70,15 +71,16 @@ namespace Entites.Notifys {
 
         public bool ValidarSolicitanteDaOrdem(int valor)
         {
-            if (valor <= 0)
+            var solicitanteEncontrado = 0;
+            foreach (int item in Enum.GetValues(typeof(Solicitantes)))
             {
-                Notifys.Add(new OrdemNotify
+                if (item == valor)
                 {
-                    Mensagem = "Solicitante da Ordem Inválido!"
-                });
-                return false;
-            }else
-            if (valor > 3)
+                    solicitanteEncontrado++;
+                    break;
+                }
+            }
+            if (solicitanteEncontrado == 0)
             {
                 Notifys.Add(new OrdemNotify
                 {
@@ -91,15 +93,16 @@ namespace Entites.Notifys {
 
         public bool ValidarStatusDaOrdem(int valor)
         {
-            if (valor <= 0)
+            var statusEncontrado = 0;
+            foreach (int item in Enum.GetValues(typeof(StatusDaOrdem)))
             {
-                Notifys.Add(new OrdemNotify
+                if (item == valor)
                 {
-                    Mensagem = "Status da Ordem Inválido!"
-                });
-                return false;
-            }else
-            if (valor > 2)
+                    statusEncontrado++;
+                    break;
+                }
+            }
+            if (statusEncontrado == 0)
             {
                 Notifys.Add(new OrdemNotify
                 {

@@ -48,8 +48,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("FuncionarioId");
 
-                    b.HasIndex("OrdemId")
-                        .IsUnique();
+                    b.HasIndex("OrdemId");
 
                     b.ToTable("Atendimento");
                 });
@@ -77,10 +76,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Entites.Entites.Ordem", b =>
                 {
-                    b.Property<int>("IdFormulario")
+                    b.Property<int>("IdOrdem")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Atendimento")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataDeConclusao")
                         .HasColumnType("datetime2");
@@ -91,13 +93,16 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Motivo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Solicitante")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("IdFormulario");
+                    b.Property<string>("Titulo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdOrdem");
 
                     b.ToTable("Ordem");
                 });
@@ -110,20 +115,15 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entites.Entites.Ordem", "Formulario")
-                        .WithOne("Atendimento")
-                        .HasForeignKey("Entites.Entites.Atendimento", "OrdemId")
+                    b.HasOne("Entites.Entites.Ordem", "Ordem")
+                        .WithMany()
+                        .HasForeignKey("OrdemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Formulario");
-
                     b.Navigation("Funcionario");
-                });
 
-            modelBuilder.Entity("Entites.Entites.Ordem", b =>
-                {
-                    b.Navigation("Atendimento");
+                    b.Navigation("Ordem");
                 });
 #pragma warning restore 612, 618
         }

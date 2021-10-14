@@ -1,18 +1,14 @@
 ﻿using Entites.Enums;
-using Entites.Notifys;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entites.Entites {
-    
-    public class Ordem : OrdemNotify 
+namespace Domain.ViewModel.Ordem
+{
+    public class ViewModelBaseOrdem
     {
-        [Key]
         public int IdOrdem { get; set; }
         public Atendimentos Atendimento { get; set; }
         public string Titulo { get; set; }
