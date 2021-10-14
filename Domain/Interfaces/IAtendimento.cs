@@ -12,5 +12,6 @@ namespace Domain.Interfaces.InterfaceAtendimento {
         Task<List<Atendimento>> ListarAtendimentos();
         Task<bool> VerificarAtendimentoPeloProtocolo(Expression<Func<Atendimento, bool>> exAtendimento);
         Task<Atendimento> ListarAtendimentosPeloProtocolo(Expression<Func<Atendimento, bool>> exAtendimento);
+        Task<List<Atendimento>> ListarAtendimentosPeloStatus(Expression<Func<Atendimento, bool>> exAtendimento);
     }
 }

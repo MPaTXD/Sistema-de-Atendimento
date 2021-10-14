@@ -106,6 +106,57 @@ namespace WebAPI.Controllers
         }
 
         [Produces("application/json")]
+        [HttpGet("/api/ListarAtendimentosPeloStatus")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseAtendimento))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<ViewModelBaseAtendimento>>> GetListarAtendimentosPeloStatus(StatusDoAtendimento status)
+        {
+            var atendimentos = await _IAppAtendimento.ListarAtendimentosPeloStatus(status);
+            if (atendimentos.Count == 0)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existem atendimentos cadastrados com o status {status}!",
+                        Error = true
+                    });
+            }
+            else
+            {
+                var listaDeAtendimentos = new List<ViewModelBaseAtendimento>();
+                foreach (var objetoAtendimento in atendimentos)
+                {
+                    var atendimento = new ViewModelBaseAtendimento();
+                    atendimento.Ordem = new ViewModelBaseOrdem();
+                    atendimento.Funcionario = new ViewModelBaseFuncionario();
+
+                    atendimento.IdAtendimento = objetoAtendimento.IdAtendimento;
+                    atendimento.Protocolo = objetoAtendimento.Protocolo;
+                    atendimento.Status = objetoAtendimento.Status;
+                    atendimento.DataDeLancamento = objetoAtendimento.DataDeLancamento;
+                    atendimento.DataDeConclusao = objetoAtendimento.DataDeConclusao;
+
+                    atendimento.Ordem.IdOrdem = objetoAtendimento.Ordem.IdOrdem;
+                    atendimento.Ordem.Atendimento = objetoAtendimento.Ordem.Atendimento;
+                    atendimento.Ordem.Titulo = objetoAtendimento.Ordem.Titulo;
+                    atendimento.Ordem.Descricao = objetoAtendimento.Ordem.Descricao;
+                    atendimento.Ordem.Solicitante = objetoAtendimento.Ordem.Solicitante;
+                    atendimento.Ordem.Status = objetoAtendimento.Ordem.Status;
+                    atendimento.Ordem.DataDeLancamento = objetoAtendimento.Ordem.DataDeLancamento;
+                    atendimento.Ordem.DataDeConclusao = objetoAtendimento.Ordem.DataDeConclusao;
+
+                    atendimento.Funcionario.IdFuncionario = objetoAtendimento.Funcionario.IdFuncionario;
+                    atendimento.Funcionario.Matricula = objetoAtendimento.Funcionario.Matricula;
+                    atendimento.Funcionario.Nome = objetoAtendimento.Funcionario.Nome;
+                    atendimento.Funcionario.Atendimento = objetoAtendimento.Funcionario.Atendimento;
+
+                    listaDeAtendimentos.Add(atendimento);
+                }
+                return Ok(listaDeAtendimentos);
+            }
+        }
+
+        [Produces("application/json")]
         [HttpGet("/api/ListarAtendimentoPeloProtocolo")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseAtendimento))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

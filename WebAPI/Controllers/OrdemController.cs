@@ -89,7 +89,7 @@ namespace WebAPI.Controllers
         }
 
         [Produces("application/json")]
-        [HttpDelete("/api/ExcluirOrdem")]
+        [HttpDelete("/api/ExcluirOrdem/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(int id)

@@ -1,5 +1,6 @@
 ﻿using App.Interfaces.Generics;
 using Entites.Entites;
+using Entites.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace App.Interfaces {
         Task<List<Atendimento>> ListarAtendimentos();
         Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo);
         Task<Atendimento> ListarAtendimentosPeloProtocolo(long protocolo);
+        Task<List<Atendimento>> ListarAtendimentosPeloStatus(StatusDoAtendimento status);
     }
 }

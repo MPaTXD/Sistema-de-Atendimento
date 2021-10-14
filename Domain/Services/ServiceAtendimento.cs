@@ -60,5 +60,10 @@ namespace Domain.Services {
         {
             return await _IAtendimento.ListarAtendimentosPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
         }
+
+        public async Task<List<Atendimento>> ListarAtendimentosPeloStatus(StatusDoAtendimento status)
+        {
+            return await _IAtendimento.ListarAtendimentosPeloStatus(atendimento => atendimento.Status == status);
+        }
     }
 }
