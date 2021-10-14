@@ -66,5 +66,9 @@ namespace Domain.Services {
         {
             return await _IOrdem.ListarOrdemPeloStatus(ordem => ordem.Status == statusDaOrdem);
         }
+        public async Task<List<Ordem>> ListarOrdemPeloSolicitante(Solicitantes solicitante)
+        {
+            return await _IOrdem.ListarOrdemPeloSolicitante(ordem => ordem.Solicitante == solicitante);
+        }
     }
 }

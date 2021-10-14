@@ -34,6 +34,10 @@ namespace App.Apps {
         {
             return await _IOrdem.ListarOrdemPeloStatus(ordem => ordem.Status == statusDaOrdem);
         }
+        public async Task<List<Ordem>> ListarOrdemPeloSolicitante(Solicitantes solicitante)
+        {
+            return await _IOrdem.ListarOrdemPeloSolicitante(ordem => ordem.Solicitante == solicitante);
+        }
         public async Task Add(Ordem Object) 
         {
             await _IOrdem.Add(Object);

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace App.Interfaces {
     public interface IAppAtendimento : IAppGeneric<Atendimento> {
-        Task AddAtendimento(Atendimento atendimento, Ordem formulario);
-        Task<List<Atendimento>> ListAtendimento();
+        Task AddAtendimento(Atendimento atendimento, Ordem ordem, Funcionario funcionario);
+        Task<List<Atendimento>> ListarAtendimentos();
+        Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo);
     }
 }

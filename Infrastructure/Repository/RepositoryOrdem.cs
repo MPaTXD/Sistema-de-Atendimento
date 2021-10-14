@@ -34,5 +34,13 @@ namespace Infrastructure.Repository {
                 return await db.Ordem.Where(exOrdem).AsNoTracking().ToListAsync();
             }
         }
+
+        public async Task<List<Ordem>> ListarOrdemPeloSolicitante(Expression<Func<Ordem,bool>> exOrdem)
+        {
+            using (var db = new ContextBase(_optionsBuilder))
+            {
+                return await db.Ordem.Where(exOrdem).AsNoTracking().ToListAsync();
+            }
+        }
     }
 }

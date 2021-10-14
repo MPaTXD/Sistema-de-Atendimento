@@ -100,6 +100,32 @@ namespace WebAPI.Controllers {
         }
 
         [Produces("application/json")]
+        [HttpDelete("/api/ExcluirFuncionario/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var funcionario = await _IAppFuncionario.SearchId(id);
+            if (funcionario == null)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existe funcionário cadastrado com Id => {id}",
+                        Error = true
+                    });
+            }
+            else
+            {
+                await _IAppFuncionario.Delete(funcionario);
+                return Ok(new 
+                {
+                    Mensagem = $"Cadastro do funcinário {funcionario.Nome} excluido com sucesso!"
+                });
+            }
+        }
+
+        [Produces("application/json")]
         [HttpGet("/api/ListarFuncionarios")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseFuncionario))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

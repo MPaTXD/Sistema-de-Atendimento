@@ -12,16 +12,16 @@ namespace Entites.Entites {
     public class Atendimento : AtendimentoNotify {
         [Key]
         public int IdAtendimento { get; set; }
-        public int Protocolo { get; set; }
+        public long Protocolo { get; set; }
         public StatusDoAtendimento Status { get; set; }
         public DateTime DataDeLancamento { get; set; }
         public DateTime DataDeConclusao { get; set; }
 
-        [ForeignKey("Formulario")]
+        [ForeignKey("Ordem")]
         public int OrdemId { get; set; }
         public Ordem Ordem { get; set; }
 
-        [ForeignKey("Operador")]
+        [ForeignKey("Funcionario")]
         public int FuncionarioId { get; set; }
         public Funcionario Funcionario { get; set; }
     }

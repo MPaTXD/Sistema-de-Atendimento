@@ -2,6 +2,7 @@
 using Domain.Interfaces.InterfaceAtendimento;
 using Domain.Interfaces.InterfacesServices;
 using Entites.Entites;
+using Entites.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,23 +18,27 @@ namespace Domain.Services {
             _IAtendimento = IAtendimento;
         }
 
-        public async Task AddAtendimento(Atendimento atendimento, Ordem formulario) {
-            
+        public async Task AddAtendimento(Atendimento atendimento, Ordem ordem, Funcionario funcionario) {
+            var protocoloDoAtendimento = GerarProtocolo((int)ordem.Atendimento, funcionario.Matricula);
+            atendimento.Protocolo = protocoloDoAtendimento;
+            atendimento.Status = StatusDoAtendimento.ANDAMENTO;
+            atendimento.DataDeLancamento = GerarData();
+            await _IAtendimento.Add(atendimento);
         }
 
-        public Task<List<Atendimento>> ListAtendimento() {
-            throw new NotImplementedException();
+        public async Task<List<Atendimento>> ListarAtendimentos() {
+            return await _IAtendimento.ListarAtendimentos();
         }
 
-        public int GerarProtocolo(string date) {
-            string[] formateDate = date.Split('/');
-            string protocolo = $"{formateDate[0].ToString()}{formateDate[1].ToString()}{formateDate[2].ToString()}";
-            return int.Parse(protocolo);
+        public long GerarProtocolo(int atendimento, long matriculaDoFuncionario) {
+            Random numeroAleatorio = new Random();
+            string protocoloDoAtendimento = $"{atendimento}{matriculaDoFuncionario}{numeroAleatorio.Next(1,100)}";
+            return long.Parse(protocoloDoAtendimento);
         }
 
-        public DateTime GerarDate() {
-            var date = new DateTime();
-            return date;
+        public DateTime GerarData() {
+            var data = new DateTime();
+            return data;
         }
         
     }

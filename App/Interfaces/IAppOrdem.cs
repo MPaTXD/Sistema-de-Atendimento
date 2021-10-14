@@ -13,5 +13,6 @@ namespace App.Interfaces {
         Task UpdateOrdem(Ordem ordem);
         Task<List<Ordem>> ListarOrdemPeloAtendimento(Atendimentos atendimento);
         Task<List<Ordem>> ListarOrdemPeloStatus(StatusDaOrdem statusDaOrdem);
+        Task<List<Ordem>> ListarOrdemPeloSolicitante(Solicitantes solicitante);
     }
 }

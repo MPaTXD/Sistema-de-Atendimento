@@ -12,5 +12,6 @@ namespace Domain.Interfaces.InterfaceFormulario {
     {
         Task<List<Ordem>> ListarOrdemPeloAtendimento(Expression<Func<Ordem, bool>> exOrdem);
         Task<List<Ordem>> ListarOrdemPeloStatus(Expression<Func<Ordem, bool>> exOrdem);
+        Task<List<Ordem>> ListarOrdemPeloSolicitante(Expression<Func<Ordem, bool>> exOrdem);
     }
 }
