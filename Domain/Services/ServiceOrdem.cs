@@ -51,6 +51,12 @@ namespace Domain.Services {
             }
         }
 
+        public async Task AlterarStatusDaOrdem(Ordem ordem)
+        {
+            ordem.Status = StatusDaOrdem.INDISPONIVEL;
+            await _IOrdem.Update(ordem);
+        }
+
         public bool ValidarDadosDaOrdem(ViewModelCadastroOrdem ordem)
         {
             var validarTituloDaOrdem = ordem.ValidarTituloDaOrdem(ordem.Titulo);

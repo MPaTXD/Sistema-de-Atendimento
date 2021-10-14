@@ -2,6 +2,7 @@
 using Domain.ViewModel.Atendimento;
 using Domain.ViewModel.Ordem;
 using Entites.Entites;
+using Entites.Enums;
 using Entites.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,17 @@ namespace WebAPI.Controllers
         {
             var funcionario = await _IAppFuncionario.SearchId(funcionarioId);
             var ordem = await _IAppOrdem.SearchId(ordemId);
+            if (ordem.Status != StatusDaOrdem.DISPONIVEL) 
+            {
+                return BadRequest(
+                    new
+                    {
+                        Mensagem = $"A ordem com ID => {ordemId} se encontrar Indisponivel ou foi Concluida!",
+                        Error = true
+                    });
+            }else
             await _IAppAtendimento.AddAtendimento(ordem, funcionario);
+            await _IAppOrdem.AlterarStatusDaOrdem(ordem);
             return Ok(
                 new
                 {
@@ -96,12 +107,12 @@ namespace WebAPI.Controllers
 
         [Produces("application/json")]
         [HttpGet("/api/ListarAtendimentoPeloProtocolo")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Atendimento))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ViewModelBaseAtendimento))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Atendimento>> GetListarAtendimentoPeloProtocolo(long protocolo)
+        public async Task<ActionResult<ViewModelBaseAtendimento>> GetListarAtendimentoPeloProtocolo(long protocolo)
         {
-            var atendimento = await _IAppAtendimento.ListarAtendimentosPeloProtocolo(protocolo);
-            if (atendimento == null)
+            var atendimentoExistente = await _IAppAtendimento.ListarAtendimentosPeloProtocolo(protocolo);
+            if (atendimentoExistente == null)
             {
                 return NotFound(
                     new
@@ -112,6 +123,30 @@ namespace WebAPI.Controllers
             }
             else
             {
+                var atendimento = new ViewModelBaseAtendimento();
+                atendimento.Ordem = new ViewModelBaseOrdem();
+                atendimento.Funcionario = new ViewModelBaseFuncionario();
+
+                atendimento.IdAtendimento = atendimentoExistente.IdAtendimento;
+                atendimento.Protocolo = atendimentoExistente.Protocolo;
+                atendimento.Status = atendimentoExistente.Status;
+                atendimento.DataDeLancamento = atendimentoExistente.DataDeLancamento;
+                atendimento.DataDeConclusao = atendimentoExistente.DataDeConclusao;
+
+                atendimento.Ordem.IdOrdem = atendimentoExistente.Ordem.IdOrdem;
+                atendimento.Ordem.Atendimento = atendimentoExistente.Ordem.Atendimento;
+                atendimento.Ordem.Titulo = atendimentoExistente.Ordem.Titulo;
+                atendimento.Ordem.Descricao = atendimentoExistente.Ordem.Descricao;
+                atendimento.Ordem.Solicitante = atendimentoExistente.Ordem.Solicitante;
+                atendimento.Ordem.Status = atendimentoExistente.Ordem.Status;
+                atendimento.Ordem.DataDeLancamento = atendimentoExistente.Ordem.DataDeLancamento;
+                atendimento.Ordem.DataDeConclusao = atendimentoExistente.Ordem.DataDeConclusao;
+
+                atendimento.Funcionario.IdFuncionario = atendimentoExistente.Funcionario.IdFuncionario;
+                atendimento.Funcionario.Matricula = atendimentoExistente.Funcionario.Matricula;
+                atendimento.Funcionario.Nome = atendimentoExistente.Funcionario.Nome;
+                atendimento.Funcionario.Atendimento = atendimentoExistente.Funcionario.Atendimento;
+
                 return Ok(atendimento);
             }
         }

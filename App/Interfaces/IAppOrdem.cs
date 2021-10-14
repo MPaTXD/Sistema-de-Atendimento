@@ -12,6 +12,7 @@ namespace App.Interfaces {
     public interface IAppOrdem : IAppGeneric<Ordem> {
         Task AddOrdem(ViewModelCadastroOrdem ordem);
         Task UpdateOrdem(ViewModelCadastroOrdem ordem, int id);
+        Task AlterarStatusDaOrdem(Ordem ordem);
         Task<List<Ordem>> ListarOrdemPeloAtendimento(Atendimentos atendimento);
         Task<List<Ordem>> ListarOrdemPeloStatus(StatusDaOrdem statusDaOrdem);
         Task<List<Ordem>> ListarOrdemPeloSolicitante(Solicitantes solicitante);

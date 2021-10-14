@@ -28,6 +28,10 @@ namespace App.Apps {
         {
             await _IServiceOrdem.UpdateOrdem(ordem, id);
         }
+        public async Task AlterarStatusDaOrdem(Ordem ordem)
+        {
+            await _IServiceOrdem.AlterarStatusDaOrdem(ordem);
+        }
         public async Task<List<Ordem>> ListarOrdemPeloAtendimento(Atendimentos atendimento)
         {
             return await _IOrdem.ListarOrdemPeloAtendimento(ordem => ordem.Atendimento == atendimento);

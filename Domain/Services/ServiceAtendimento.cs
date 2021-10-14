@@ -45,8 +45,9 @@ namespace Domain.Services {
             return long.Parse(protocoloDoAtendimento);
         }
 
-        public DateTime GerarData() {
-            var data = new DateTime();
+        public DateTime GerarData() 
+        {
+            var data = DateTime.Now;
             return data;
         }
 

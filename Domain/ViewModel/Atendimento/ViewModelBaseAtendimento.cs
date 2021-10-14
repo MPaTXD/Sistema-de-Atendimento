@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModel.Atendimento
 {
-    public class ViewModelBaseAtendimento : AtendimentoNotify
+    public class ViewModelBaseAtendimento
     {
         public int IdAtendimento { get; set; }
         public long Protocolo { get; set; }

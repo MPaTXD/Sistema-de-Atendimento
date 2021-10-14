@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Entites.Entites {
     
-    public class Ordem : OrdemNotify 
+    public class Ordem
     {
         [Key]
         public int IdOrdem { get; set; }

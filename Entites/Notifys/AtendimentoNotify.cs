@@ -13,7 +13,8 @@ namespace Entites.Notifys {
         }
 
         [NotMapped]
-        public string Mensagem { get; set; }
+        private string _Mensagem { get; set; }
+        public string Mensagem => _Mensagem;
 
         [NotMapped]
         public List<AtendimentoNotify> Notifys;
