@@ -30,18 +30,18 @@ namespace WebAPI.Controllers {
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<FuncionarioNotify>>> Post(ViewModelCadastroFuncionario funcionario)
         {
-            var NovoFuncionario = new Funcionario
+            var novoFuncionario = new Funcionario
             {
                 Nome = funcionario.Nome,
                 Atendimento = funcionario.Atendimento
             };
-            await _IAppFuncionario.AddFuncionario(NovoFuncionario);
-            if (NovoFuncionario.Notifys.Any())
+            await _IAppFuncionario.AddFuncionario(novoFuncionario);
+            if (novoFuncionario.Notifys.Any())
             {
                 return BadRequest(
                     new
                     {
-                        NovoFuncionario.Notifys,
+                        novoFuncionario.Notifys,
                         Error = true
                     });
             }
@@ -52,6 +52,51 @@ namespace WebAPI.Controllers {
                         Mensagem = $"Funcionario {funcionario.Nome} cadastrado com sucesso!"
                     });
 
+        }
+
+        [Produces("application/json")]
+        [HttpPut("/api/EditarFuncionario/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<FuncionarioNotify>>> Put(int id, ViewModelCadastroFuncionario funcionario)
+        {
+            var funcionarioExistente = await _IAppFuncionario.BuscarFuncionarioPeloId(id);
+            if (funcionarioExistente == null)
+            {
+                return NotFound(
+                    new
+                    {
+                        Mensagem = $"Não existe funcionario cadastrado com o ID : {id}",
+                        Error = true
+                    });
+            }
+            else
+            {
+                var funcionarioEditado = new Funcionario
+                {
+                    IdFuncionario = funcionarioExistente.IdFuncionario,
+                    Nome = funcionario.Nome,
+                    Atendimento = funcionario.Atendimento
+                };
+                await _IAppFuncionario.UpdateFuncionario(funcionarioEditado);
+                if (funcionarioEditado.Notifys.Any())
+                {
+                    return BadRequest(
+                        new
+                        {
+                            funcionarioEditado.Notifys,
+                            Error = true
+                        });
+                }
+                else
+                    return Ok(
+                        new
+                        {
+                            Mensagem = $"O cadastro do funcionario {funcionarioExistente.Nome} foi editado com sucesso!"
+                        });
+
+            }
         }
 
         [Produces("application/json")]

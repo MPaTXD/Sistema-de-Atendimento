@@ -8,6 +8,7 @@ namespace Entites.Enums {
     public enum StatusDaOrdem 
     {
         DISPONIVEL = 1,
-        INDISPONIVEL = 2
+        INDISPONIVEL = 2,
+        CONCLUIDA = 3
     }
 }

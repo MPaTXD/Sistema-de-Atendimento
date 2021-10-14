@@ -19,7 +19,7 @@ namespace Entites.Entites {
 
         [ForeignKey("Formulario")]
         public int OrdemId { get; set; }
-        public Ordem Formulario { get; set; }
+        public Ordem Ordem { get; set; }
 
         [ForeignKey("Operador")]
         public int FuncionarioId { get; set; }

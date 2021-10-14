@@ -14,9 +14,10 @@ namespace Entites.Entites {
     {
         [Key]
         public int IdFormulario { get; set; }
-        public Atendimento Atendimento { get; set; }
-        public string Motivo { get; set; }
+        public Atendimentos Atendimento { get; set; }
+        public string Titulo { get; set; }
         public string Descricao { get; set; }
+        public Solicitantes Solicitante { get; set; }
         public StatusDaOrdem Status { get; set; }
         public DateTime DataDeLancamento { get; set; }
         public DateTime DataDeConclusao { get; set; }
