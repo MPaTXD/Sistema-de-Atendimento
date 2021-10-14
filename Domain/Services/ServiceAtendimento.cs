@@ -10,15 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Services {
-    public class ServiceAtendimento : IServiceAtendimento {
+    public class ServiceAtendimento : IServiceAtendimento 
+    {
 
         private readonly IAtendimento _IAtendimento;
 
-        public ServiceAtendimento(IAtendimento IAtendimento) {
+        public ServiceAtendimento(IAtendimento IAtendimento) 
+        {
             _IAtendimento = IAtendimento;
         }
 
-        public async Task AddAtendimento(Ordem ordem, Funcionario funcionario) {
+        public async Task AddAtendimento(Ordem ordem, Funcionario funcionario) 
+        {
             var protocoloDoAtendimento = GerarProtocolo((int)ordem.Atendimento, funcionario.Matricula);
             if (await VerificarAtendimentoPeloProtocolo(protocoloDoAtendimento))
             {
@@ -34,33 +37,29 @@ namespace Domain.Services {
             };
             await _IAtendimento.Add(novoAtendimento);
         }
-
-        public async Task<List<Atendimento>> ListarAtendimentos() {
+        public async Task<List<Atendimento>> ListarAtendimentos() 
+        {
             return await _IAtendimento.ListarAtendimentos();
         }
-
-        public long GerarProtocolo(int atendimento, long matriculaDoFuncionario) {
+        public long GerarProtocolo(int atendimento, long matriculaDoFuncionario) 
+        {
             Random numeroAleatorio = new Random();
             string protocoloDoAtendimento = $"{atendimento}{matriculaDoFuncionario}{numeroAleatorio.Next(1,10)}";
             return long.Parse(protocoloDoAtendimento);
         }
-
         public DateTime GerarData() 
         {
             var data = DateTime.Now;
             return data;
         }
-
         public async Task<bool> VerificarAtendimentoPeloProtocolo(long protocolo)
         {
             return await _IAtendimento.VerificarAtendimentoPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
         }
-
         public async Task<Atendimento> ListarAtendimentosPeloProtocolo(long protocolo)
         {
             return await _IAtendimento.ListarAtendimentosPeloProtocolo(atendimento => atendimento.Protocolo == protocolo);
         }
-
         public async Task<List<Atendimento>> ListarAtendimentosPeloStatus(StatusDoAtendimento status)
         {
             return await _IAtendimento.ListarAtendimentosPeloStatus(atendimento => atendimento.Status == status);
