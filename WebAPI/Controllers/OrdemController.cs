@@ -30,22 +30,20 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<List<OrdemNotify>>> Post(ViewModelCadastroOrdem ordem)
         {
             await _IAppOrdem.AddOrdem(ordem);
-            if (ordem.Notifys.Any())
-            {
-                return BadRequest(new
-                {
-                    ordem.Notifys,
-                    Error = true
-                });
-            }
-            else
-            {
-                return Ok(
+            return ordem.Notifys.Any()
+
+                ? BadRequest (
+                    new
+                    {
+                      ordem.Notifys,
+                      Error = true
+                    })
+            
+               : Ok (
                     new
                     {
                         Mensagem = $"O cadastro da ordem {ordem.Titulo} foi bem sucedido!"
                     });
-            }
         }
 
         [Produces("application/json")]
@@ -68,23 +66,20 @@ namespace WebAPI.Controllers
             else 
             {
                 await _IAppOrdem.UpdateOrdem(ordem, id);
-                if (ordem.Notifys.Any())
-                {
-                    return BadRequest(
+                return ordem.Notifys.Any()
+                
+                    ? BadRequest(
                         new
                         {
                             ordem.Notifys,
                             Error = true
-                        });
-                }
-                else
-                {
-                    return Ok(
+                        })
+               
+                    : Ok(
                         new 
                         {
                             Mensagem = $"Ordem {ordemExistente.Titulo} editada com sucesso!"
                         });
-                }
             }
         }
 

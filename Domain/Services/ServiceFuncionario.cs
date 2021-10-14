@@ -70,8 +70,7 @@ namespace Domain.Services {
         public long GerarMatriculaDoFuncionario(int atendimentoDoFuncionario) {
             Random numeroAleatorio = new Random();
             var dataCadastroDoFuncionario = GerarData().ToString("yyyy");
-            string[] dataDeCadastroFormatada = dataCadastroDoFuncionario.Split('/');
-            string matriculaDoFuncionario = $"{atendimentoDoFuncionario}{dataDeCadastroFormatada[0]}{numeroAleatorio.Next(1,100)}";
+            string matriculaDoFuncionario = $"{atendimentoDoFuncionario}{dataCadastroDoFuncionario}{numeroAleatorio.Next(1,100)}";
             return long.Parse(matriculaDoFuncionario);
         }
 

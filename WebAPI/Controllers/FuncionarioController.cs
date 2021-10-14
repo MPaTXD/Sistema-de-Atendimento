@@ -31,22 +31,18 @@ namespace WebAPI.Controllers {
         public async Task<ActionResult<List<FuncionarioNotify>>> Post(ViewModelCadastroFuncionario funcionario)
         {
             await _IAppFuncionario.AddFuncionario(funcionario);
-            if (funcionario.Notifys.Any())
-            {
-                return BadRequest(
+            return funcionario.Notifys.Any() 
+                ? BadRequest(
                     new
                     {
                         funcionario.Notifys,
                         Error = true
-                    });
-            }
-            else
-                return Ok(
+                    })
+                : Ok(
                     new
                     {
                         Mensagem = $"Funcionario {funcionario.Nome} cadastrado com sucesso!"
                     });
-
         }
 
         [Produces("application/json")]
@@ -54,7 +50,7 @@ namespace WebAPI.Controllers {
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<FuncionarioNotify>>> Put(int id, ViewModelCadastroFuncionario funcionario)
+        public async Task<ActionResult<List<FuncionarioNotify>>> Put([FromRoute] int id, ViewModelCadastroFuncionario funcionario)
         {
             var funcionarioExistente = await _IAppFuncionario.BuscarFuncionarioPeloId(id);
             if (funcionarioExistente == null)
@@ -69,22 +65,19 @@ namespace WebAPI.Controllers {
             else
             {
                 await _IAppFuncionario.UpdateFuncionario(funcionario, id);
-                if (funcionario.Notifys.Any())
-                {
-                    return BadRequest(
+                return funcionario.Notifys.Any()
+                    ? BadRequest(
                         new
                         {
                             funcionario.Notifys,
                             Error = true
-                        });
-                }
-                else
-                    return Ok(
+                        })
+                
+                    : Ok(
                         new
                         {
                             Mensagem = $"O cadastro do funcionario {funcionarioExistente.Nome} foi editado com sucesso!"
                         });
-
             }
         }
 

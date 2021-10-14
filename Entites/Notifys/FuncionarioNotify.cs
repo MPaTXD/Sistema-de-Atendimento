@@ -16,7 +16,7 @@ namespace Entites.Notifys {
         }
 
         [NotMapped]
-        private string _Mensagem { get; set; }
+        public string _Mensagem { get; private set; }
         public string Mensagem => _Mensagem;
 
         [NotMapped]
