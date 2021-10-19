@@ -16,8 +16,7 @@ namespace Entites.Notifys {
         }
 
         [NotMapped]
-        private string _Mensagem { get; set; }
-        public string Mensagem => _Mensagem;
+        public string Mensagem { get; private set; }
 
         [NotMapped]
         public List<OrdemNotify> Notifys;
@@ -28,7 +27,7 @@ namespace Entites.Notifys {
             {
                 Notifys.Add(new OrdemNotify
                 {
-                    _Mensagem = "Titulo da Ordem não informado!",
+                    Mensagem = "Titulo da Ordem não informado!",
                 });
                 return false;
             }
@@ -41,7 +40,7 @@ namespace Entites.Notifys {
             {
                 Notifys.Add(new OrdemNotify
                 {
-                    _Mensagem = "Descrição da Ordem não informada!"
+                    Mensagem = "Descrição da Ordem não informada!"
                 });
                 return false;
             }
@@ -63,7 +62,7 @@ namespace Entites.Notifys {
             {
                 Notifys.Add(new OrdemNotify
                 {
-                    _Mensagem = "Atendimento da Ordem Inválido!"
+                    Mensagem = "Atendimento da Ordem Inválido!"
                 });
                 return false;
             }
@@ -85,7 +84,7 @@ namespace Entites.Notifys {
             {
                 Notifys.Add(new OrdemNotify
                 {
-                    _Mensagem = "Solicitante da Ordem Inválido!"
+                    Mensagem = "Solicitante da Ordem Inválido!"
                 });
                 return false;
             }
@@ -107,7 +106,7 @@ namespace Entites.Notifys {
             {
                 Notifys.Add(new OrdemNotify
                 {
-                    _Mensagem = "Status da Ordem Inválido!"
+                    Mensagem = "Status da Ordem Inválido!"
                 });
                 return false;
             }

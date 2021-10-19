@@ -1,4 +1,5 @@
 ﻿using App.Interfaces;
+using AutoMapper;
 using Domain.ViewModel.Ordem;
 using Entites.Entites;
 using Entites.Enums;
@@ -17,10 +18,12 @@ namespace WebAPI.Controllers
     public class OrdemController : ControllerBase
     {
         private readonly IAppOrdem _IAppOrdem;
+        private readonly IMapper _mapper;
 
-        public OrdemController(IAppOrdem IAppOrdem)
+        public OrdemController(IAppOrdem IAppOrdem, IMapper mapper)
         {
             _IAppOrdem = IAppOrdem;
+            _mapper = mapper;
         }
 
         [Produces("application/json")]
@@ -128,21 +131,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                var listaDeOrdens = new List<ViewModelBaseOrdem>();
-                foreach (var objetoOrdem in ordens)
-                {
-                    var ordem = new ViewModelBaseOrdem();
-                    ordem.IdOrdem = objetoOrdem.IdOrdem;
-                    ordem.Titulo = objetoOrdem.Titulo;
-                    ordem.Descricao = objetoOrdem.Descricao;
-                    ordem.Atendimento = objetoOrdem.Atendimento;
-                    ordem.Status = objetoOrdem.Status;
-                    ordem.Solicitante = objetoOrdem.Solicitante;
-                    ordem.DataDeLancamento = objetoOrdem.DataDeLancamento;
-                    ordem.DataDeConclusao = objetoOrdem.DataDeConclusao;
-
-                    listaDeOrdens.Add(ordem);
-                }
+                var listaDeOrdens = _mapper.Map<List<ViewModelBaseOrdem>>(ordens);
                 return Ok(listaDeOrdens);
             }
         }
@@ -165,22 +154,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                var listaDeOrdens = new List<ViewModelBaseOrdem>();
-                foreach (var objetoOrdem in ordens)
-                {
-                    var ordem = new ViewModelBaseOrdem();
-
-                    ordem.IdOrdem = objetoOrdem.IdOrdem;
-                    ordem.Titulo = objetoOrdem.Titulo;
-                    ordem.Descricao = objetoOrdem.Descricao;
-                    ordem.Atendimento = objetoOrdem.Atendimento;
-                    ordem.Status = objetoOrdem.Status;
-                    ordem.Solicitante = objetoOrdem.Solicitante;
-                    ordem.DataDeLancamento = objetoOrdem.DataDeLancamento;
-                    ordem.DataDeConclusao = objetoOrdem.DataDeConclusao;
-
-                    listaDeOrdens.Add(ordem);
-                }
+                var listaDeOrdens = _mapper.Map<List<ViewModelBaseOrdem>>(ordens);
                 return Ok(listaDeOrdens);
             }
         }
@@ -203,22 +177,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                var listaDeOrdens = new List<ViewModelBaseOrdem>();
-                foreach (var objetoOrdem in ordens)
-                {
-                    var ordem = new ViewModelBaseOrdem();
-
-                    ordem.IdOrdem = objetoOrdem.IdOrdem;
-                    ordem.Titulo = objetoOrdem.Titulo;
-                    ordem.Descricao = objetoOrdem.Descricao;
-                    ordem.Atendimento = objetoOrdem.Atendimento;
-                    ordem.Status = objetoOrdem.Status;
-                    ordem.Solicitante = objetoOrdem.Solicitante;
-                    ordem.DataDeLancamento = objetoOrdem.DataDeLancamento;
-                    ordem.DataDeConclusao = objetoOrdem.DataDeConclusao;
-
-                    listaDeOrdens.Add(ordem);
-                }
+                var listaDeOrdens = _mapper.Map<List<ViewModelBaseOrdem>>(ordens);
                 return Ok(listaDeOrdens);
             }
         }
@@ -241,22 +200,7 @@ namespace WebAPI.Controllers
             }
             else
             {
-                var listaDeOrdens = new List<ViewModelBaseOrdem>();
-                foreach (var objetoOrdem in ordens)
-                {
-                    var ordem = new ViewModelBaseOrdem();
-
-                    ordem.IdOrdem = objetoOrdem.IdOrdem;
-                    ordem.Titulo = objetoOrdem.Titulo;
-                    ordem.Descricao = objetoOrdem.Descricao;
-                    ordem.Atendimento = objetoOrdem.Atendimento;
-                    ordem.Status = objetoOrdem.Status;
-                    ordem.Solicitante = objetoOrdem.Solicitante;
-                    ordem.DataDeLancamento = objetoOrdem.DataDeLancamento;
-                    ordem.DataDeConclusao = objetoOrdem.DataDeConclusao;
-
-                    listaDeOrdens.Add(ordem);
-                }
+                var listaDeOrdens = _mapper.Map<List<ViewModelBaseOrdem>>(ordens);
                 return Ok(listaDeOrdens);
             }
         }

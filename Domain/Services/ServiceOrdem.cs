@@ -25,16 +25,7 @@ namespace Domain.Services {
         {
             if (ValidarDadosDaOrdem(ordem))
             {
-                var novaOrdem = new Ordem
-                {
-                    Atendimento = ordem.Atendimento,
-                    Titulo = ordem.Titulo,
-                    Descricao = ordem.Descricao,
-                    Solicitante = ordem.Solicitante,
-                    Status = StatusDaOrdem.DISPONIVEL,
-                    DataDeLancamento = GerarData()
-
-                };
+                var novaOrdem = CriarOrdem(ordem);
                 await _IOrdem.Add(novaOrdem);
             }
         }
@@ -43,20 +34,41 @@ namespace Domain.Services {
             if (ValidarDadosDaOrdem(ordem))
             {
                 var ordemExistente = await _IOrdem.SearchId(id);
-                ordemExistente.Atendimento = ordem.Atendimento;
-                ordemExistente.Titulo = ordem.Titulo;
-                ordemExistente.Descricao = ordem.Descricao;
-                ordemExistente.Solicitante = ordem.Solicitante;
-                await _IOrdem.Update(ordemExistente);
+                var ordemAtualizada = AlterarOrdem(ordem, ordemExistente);
+                await _IOrdem.Update(ordemAtualizada);
             }
         }
-
         public async Task AlterarStatusDaOrdem(Ordem ordem)
         {
             ordem.Status = StatusDaOrdem.INDISPONIVEL;
             await _IOrdem.Update(ordem);
         }
-
+        public Ordem CriarOrdem (ViewModelCadastroOrdem ordem)
+        {
+            var novaOrdem = new Ordem
+            {
+                Atendimento = ordem.Atendimento,
+                Titulo = ordem.Titulo,
+                Descricao = ordem.Descricao,
+                Solicitante = ordem.Solicitante,
+                DataDeLancamento = GerarData(),
+                Status = StatusDaOrdem.DISPONIVEL
+            };
+            return novaOrdem;
+        }
+        public Ordem AlterarOrdem(ViewModelCadastroOrdem ordem, Ordem ordemExistente)
+        {
+            var ordemAtualizada = new Ordem
+            {
+                IdOrdem = ordemExistente.IdOrdem,
+                Atendimento = ordem.Atendimento,
+                Titulo = ordem.Titulo,
+                Descricao = ordem.Descricao,
+                Solicitante = ordem.Solicitante,
+                DataDeLancamento = ordemExistente.DataDeLancamento
+            };
+            return ordemAtualizada;
+        }
         public bool ValidarDadosDaOrdem(ViewModelCadastroOrdem ordem)
         {
             var validarTituloDaOrdem = ordem.ValidarTituloDaOrdem(ordem.Titulo);
@@ -70,14 +82,11 @@ namespace Domain.Services {
             }
             return false;
         }
-
         public DateTime GerarData()
         {
             var data = DateTime.Now;
             return data;
         }
-
-
         public async Task<List<Ordem>> ListarOrdemPeloAtendimento(Atendimentos atendimento)
         {
             return await _IOrdem.ListarOrdemPeloAtendimento(ordem => ordem.Atendimento == atendimento);
@@ -92,3 +101,4 @@ namespace Domain.Services {
         }
     }
 }
+

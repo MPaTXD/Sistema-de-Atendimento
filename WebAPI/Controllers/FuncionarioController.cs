@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.ViewModel;
 using Entites.Enums;
+using AutoMapper;
 
 namespace WebAPI.Controllers {
     [Route("api/[controller]")]
@@ -18,10 +19,12 @@ namespace WebAPI.Controllers {
     {
 
         private readonly IAppFuncionario _IAppFuncionario;
+        private readonly IMapper _mapper;
 
-        public FuncionarioController(IAppFuncionario IAppFuncionario)
+        public FuncionarioController(IAppFuncionario IAppFuncionario, IMapper mapper)
         {
             _IAppFuncionario = IAppFuncionario;
+            _mapper = mapper;
         }
 
         [Produces("application/json")]
@@ -125,16 +128,7 @@ namespace WebAPI.Controllers {
             }
             else
             {
-                var listaDeFuncionarios = new List<ViewModelBaseFuncionario>();
-                foreach (var objetoFuncionario in funcionarios)
-                {
-                    var funcionario = new ViewModelBaseFuncionario();
-                    funcionario.IdFuncionario = objetoFuncionario.IdFuncionario;
-                    funcionario.Nome = objetoFuncionario.Nome;
-                    funcionario.Matricula = objetoFuncionario.Matricula;
-                    funcionario.Atendimento = objetoFuncionario.Atendimento;
-                    listaDeFuncionarios.Add(funcionario);
-                }
+                var listaDeFuncionarios = _mapper.Map<List<ViewModelBaseFuncionario>>(funcionarios);
                 return Ok(listaDeFuncionarios);
             }
         }
@@ -157,13 +151,7 @@ namespace WebAPI.Controllers {
             }
             else
             {
-                var funcionarioEncontrado = new ViewModelBaseFuncionario();
-
-                funcionarioEncontrado.IdFuncionario = funcionario.IdFuncionario;
-                funcionarioEncontrado.Nome = funcionario.Nome;
-                funcionarioEncontrado.Matricula = funcionario.Matricula;
-                funcionarioEncontrado.Atendimento = funcionario.Atendimento;
-
+                var funcionarioEncontrado = _mapper.Map<ViewModelBaseFuncionario>(funcionario);
                 return Ok(funcionarioEncontrado);
             }
         }
@@ -186,16 +174,7 @@ namespace WebAPI.Controllers {
             }
             else
             {
-                var listaDeFuncionarios = new List<ViewModelBaseFuncionario>();
-                foreach (var objetoFuncionario in funcionarios)
-                {
-                    var funcionario = new ViewModelBaseFuncionario();
-                    funcionario.IdFuncionario = objetoFuncionario.IdFuncionario;
-                    funcionario.Nome = objetoFuncionario.Nome;
-                    funcionario.Matricula = objetoFuncionario.Matricula;
-                    funcionario.Atendimento = objetoFuncionario.Atendimento;
-                    listaDeFuncionarios.Add(funcionario);
-                }
+                var listaDeFuncionarios = _mapper.Map<List<ViewModelBaseFuncionario>>(funcionarios);
                 return Ok(listaDeFuncionarios);
             }
         }

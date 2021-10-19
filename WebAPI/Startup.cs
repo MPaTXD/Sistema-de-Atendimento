@@ -1,11 +1,16 @@
 using App.Apps;
 using App.Interfaces;
+using AutoMapper;
 using Domain.Interfaces;
 using Domain.Interfaces.Generics;
 using Domain.Interfaces.InterfaceAtendimento;
 using Domain.Interfaces.InterfaceFormulario;
 using Domain.Interfaces.InterfacesServices;
 using Domain.Services;
+using Domain.ViewModel.Atendimento;
+using Domain.ViewModel.Ordem;
+using Entites.Entites;
+using Entites.ViewModel;
 using Infrastructure.Configs;
 using Infrastructure.Repository;
 using Infrastructure.Repository.Generics;
@@ -38,6 +43,15 @@ namespace WebAPI {
             services.AddDbContext<ContextBase>(options =>
             options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Ordem, ViewModelBaseOrdem>();
+                cfg.CreateMap<Funcionario, ViewModelBaseFuncionario>();
+                cfg.CreateMap<Atendimento, ViewModelBaseAtendimento>();
+            });
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             // INTERFACE E REPOSITORY
             services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGeneric<>));
